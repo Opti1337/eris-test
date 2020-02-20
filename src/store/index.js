@@ -6,27 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     items: [
-      { name: "John", gender: "Male" },
-      { name: "Sarah", gender: "Female" },
-      { name: "Tisha", gender: "Female" },
-      { name: "Grisha", gender: "Male" }
+      { name: 'John', gender: 'Male' },
+      { name: 'Sarah', gender: 'Female' },
+      { name: 'Tisha', gender: 'Female' },
+      { name: 'Grisha', gender: 'Male' }
     ],
-    sortDir: 'asc'
+    filter: ['Male', 'Female']
   },
 
   getters: {
-    sortedItems: (state) => {
-      let sortedItems = [...state.items].sort(function (a, b) {
-        if (a.gender < b.gender) { return -1; }
-        if (a.gender > b.gender) { return 1; }
-        return 0;
+    filteredItems: (state) => {
+      return [...state.items].filter(item => {
+        return state.filter.includes(item.gender)
       })
-
-      if (state.sortDir === 'asc') {
-        return sortedItems
-      } else {
-        return sortedItems.reverse()
-      }
     }
   },
 
@@ -35,8 +27,8 @@ export default new Vuex.Store({
       state.items = items
     },
 
-    setSortDir(state, dir) {
-      state.sortDir = dir
+    setFilter(state, filters) {
+      state.filter = filters
     }
   },
 
@@ -45,8 +37,12 @@ export default new Vuex.Store({
       commit('setItems', [...state.items, item])
     },
 
-    removeLastItem({ commit, state }) {
-      commit('setItems', state.items.slice(0, -1))
+    removeLastItem({ commit, state, getters }) {
+      const itemToRemove = getters.filteredItems[getters.filteredItems.length - 1]
+
+      commit('setItems', [...state.items].filter(item => {
+        return !(item.name === itemToRemove.name && item.gender === itemToRemove.gender)//Object.is(item, itemToRemove)
+      }))
     }
   }
 })
