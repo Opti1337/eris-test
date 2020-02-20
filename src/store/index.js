@@ -11,13 +11,17 @@ export default new Vuex.Store({
       { name: 'Tisha', gender: 'Female' },
       { name: 'Grisha', gender: 'Male' }
     ],
-    filter: ['Male', 'Female']
+    filter: {
+      gender: ['Male', 'Female']
+    }
   },
 
   getters: {
     filteredItems: (state) => {
       return [...state.items].filter(item => {
-        return state.filter.includes(item.gender)
+        return Object.keys(state.filter).every(filterKey => {
+          return state.filter[filterKey].includes(item[filterKey])
+        })
       })
     }
   },
