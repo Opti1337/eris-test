@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in $store.getters.filteredItems" :key="item.name">
+        <tr v-for="item in $store.getters.sortedItems" :key="item.name">
           <td>{{item.name}}</td>
           <td>{{item.gender}}</td>
         </tr>

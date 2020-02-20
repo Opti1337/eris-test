@@ -6,12 +6,12 @@
         class="dropdown-item"
         :class="{'active': $store.state.sortDir === 'asc'}"
         @click="setSortDir('asc')"
-      >По возрастанию</button>
+      >Сначала женщины</button>
       <button
         class="dropdown-item"
         :class="{'active': $store.state.sortDir === 'desc'}"
         @click="setSortDir('desc')"
-      >По убыванию</button>
+      >Сначала мужчины</button>
     </div>
   </div>
 </template>

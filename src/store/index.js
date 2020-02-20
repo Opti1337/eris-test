@@ -15,19 +15,17 @@ export default new Vuex.Store({
   },
 
   getters: {
-    filteredItems: (state) => {
+    sortedItems: (state) => {
+      let sortedItems = [...state.items].sort(function (a, b) {
+        if (a.gender < b.gender) { return -1; }
+        if (a.gender > b.gender) { return 1; }
+        return 0;
+      })
+
       if (state.sortDir === 'asc') {
-        return [...state.items].sort(function (a, b) {
-          if (a.gender < b.gender) { return -1; }
-          if (a.gender > b.gender) { return 1; }
-          return 0;
-        })
+        return sortedItems
       } else {
-        return [...state.items].sort(function (a, b) {
-          if (a.gender < b.gender) { return -1; }
-          if (a.gender > b.gender) { return 1; }
-          return 0;
-        }).reverse()
+        return sortedItems.reverse()
       }
     }
   },
