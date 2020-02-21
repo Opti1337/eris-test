@@ -19,15 +19,15 @@
         @onChange="handleFilterChanged"
       >
         <template v-slot:default="slotProps">
-          <button class="btn btn-sm btn-secondary" @click="slotProps.toggle">Фильтр</button>
+          <button class="btn btn-sm btn-primary" @click="slotProps.toggle">Фильтр</button>
         </template>
       </FilterComponent>
     </div>
     <table v-if="$store.getters.filteredItems.length" class="table">
       <thead>
         <tr>
-          <th width="50" scope="col">Имя</th>
-          <th width="50" scope="col">Пол</th>
+          <th width="50%" scope="col">Имя</th>
+          <th width="50%" scope="col">Пол</th>
         </tr>
       </thead>
       <tbody>
